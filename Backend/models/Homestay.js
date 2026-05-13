@@ -30,6 +30,9 @@ const homestaySchema = new mongoose.Schema({
     host: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
+    },
+    hostName:{
+    type:String
     }
 
 }, { timestamps: true });

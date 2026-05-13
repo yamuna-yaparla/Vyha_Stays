@@ -201,8 +201,10 @@ function HomestayDetails() {
     return (
 
         <div className="details-container">
-
-            <img src={homestay.image} />
+            <div className="details-image-container">
+                <img  className="details-image" src={homestay.image} />
+            </div>
+            
 
             <div className="details-content">
 
@@ -216,7 +218,7 @@ function HomestayDetails() {
 
                 <p>
 
-                    Host: {homestay.host?.name}
+                    Host: {homestay.hostName}
 
                 </p>
 

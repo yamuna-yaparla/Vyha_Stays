@@ -8,37 +8,61 @@
 
 }
 
+/* IMAGE SECTION */
+
+.details-image-container{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
 .details-image{
 
     width:100%;
 
-    height:500px;
+    max-width:1200px;
+
+    height:550px;
 
     object-fit:cover;
 
-    border-radius:20px;
+    border-radius:25px;
 
-    margin-bottom:30px;
-
-    box-shadow:0px 4px 20px rgba(0,0,0,0.15);
+    box-shadow:
+    0px 4px 20px rgba(0,0,0,0.15);
 
 }
+
+/* CONTENT */
 
 .details-content{
 
     background:white;
 
-    padding:35px;
+    padding:40px;
 
-    border-radius:20px;
+    border-radius:25px;
 
-    box-shadow:0px 4px 20px rgba(0,0,0,0.1);
+    box-shadow:
+    0px 4px 20px rgba(0,0,0,0.08);
+
+    max-width:1200px;
+
+    margin:auto;
 
 }
 
 .details-content h1{
 
-    font-size:40px;
+    font-size:42px;
 
     margin-bottom:20px;
 
@@ -54,17 +78,22 @@
 
     color:#555;
 
+    line-height:1.6;
+
 }
+
+/* BUTTONS */
 
 .action-btn{
 
-    padding:14px 28px;
+    padding:14px 30px;
 
     border:none;
 
-    border-radius:10px;
+    border-radius:12px;
 
-    background:linear-gradient(
+    background:
+    linear-gradient(
         135deg,
         #ff385c,
         #ff6b81
@@ -86,9 +115,11 @@
 
 .action-btn:hover{
 
-    transform:scale(1.05);
+    transform:translateY(-2px);
 
 }
+
+/* FORM */
 
 .booking-form{
 
@@ -109,7 +140,7 @@
 
     border:1px solid #ddd;
 
-    border-radius:10px;
+    border-radius:12px;
 
     font-size:16px;
 
@@ -129,7 +160,7 @@
 
     border:none;
 
-    border-radius:10px;
+    border-radius:12px;
 
     background:#222;
 
@@ -139,21 +170,9 @@
 
     cursor:pointer;
 
-    transition:0.3s;
-
 }
 
-.booking-form button:hover{
-
-    background:#000;
-
-}
-
-.divider{
-
-    margin:40px 0;
-
-}
+/* REVIEW SECTION */
 
 .review-header{
 
@@ -162,6 +181,8 @@
     justify-content:space-between;
 
     align-items:center;
+
+    margin-top:40px;
 
 }
 
@@ -175,7 +196,8 @@
 
     margin-top:20px;
 
-    box-shadow:0px 2px 10px rgba(0,0,0,0.08);
+    box-shadow:
+    0px 2px 10px rgba(0,0,0,0.08);
 
 }
 
@@ -187,16 +209,40 @@
 
 }
 
-.review-card p{
-
-    margin-bottom:10px;
-
-}
-
 .no-review{
 
     margin-top:20px;
 
     color:#777;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .details-container{
+
+        padding:20px;
+
+    }
+
+    .details-image{
+
+        height:300px;
+
+    }
+
+    .details-content{
+
+        padding:25px;
+
+    }
+
+    .details-content h1{
+
+        font-size:30px;
+
+    }
 
 }

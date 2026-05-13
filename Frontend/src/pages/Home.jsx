@@ -10,10 +10,6 @@ function Home() {
 
     const [homestays, setHomestays] = useState([]);
 
-    const [search, setSearch] = useState("");
-
-    const [maxPrice, setMaxPrice] = useState("");
-
     const getHomestays = async () => {
 
         try {
@@ -36,109 +32,139 @@ function Home() {
 
     }, []);
 
-    const filteredHomestays = homestays.filter((stay) => {
+    // GROUP STAYS BY LOCATION
 
-    return (
+    const groupedStays = homestays.reduce(
 
-        stay.title
-        .toLowerCase()
-        .includes(search.toLowerCase())
+        (groups, stay) => {
 
-        &&
+            const location = stay.location;
 
-        (
-            maxPrice === ""
+            if(!groups[location]){
 
-            ||
+                groups[location] = [];
 
-            stay.price <= Number(maxPrice)
-        )
+            }
+
+            groups[location].push(stay);
+
+            return groups;
+
+        },
+
+        {}
 
     );
 
-});
-
     return (
 
-        <div >
+        <div className="home-container">
 
-            <div className="search-bar" style={{
-                marginBottom:"20px"
-            }}
->
-                <input
-                    type="text"
-                    placeholder="Search stays..."
-                    value={search}
-                    onChange={(e) =>
-                    setSearch(e.target.value)
-                    }
-                    style={{
-                    padding:"10px",
-                    marginRight:"10px"
-                    }}
-                />
+            <div className="hero">
 
-                <input
-                    type="number"
-                    placeholder="Max Price"
-                    value={maxPrice}
-                    onChange={(e) =>
-                    setMaxPrice(e.target.value)
-                    }
-                    style={{
-                    padding:"10px"
-                    }}
-                 />
+                <div className="hero-content">
+
+                    <h1>
+
+                        Find Your Perfect Stay
+
+                    </h1>
+
+                    <p>
+
+                        Explore stays across India
+
+                    </p>
+
+                </div>
 
             </div>
 
             {
 
-                filteredHomestays.map((stay) => (
+                Object.keys(groupedStays).map(
 
-                    <div
-                        key={stay._id}
-                        style={{
-                            border: "1px solid black",
-                            margin: "20px",
-                            padding: "20px"
-                        }}
-                    >
+                    (place) => (
 
-                        <h2>{stay.title}</h2>
+                        <div
+                            key={place}
+                            className="place-section"
+                        >
 
-                        <p>{stay.location}</p>
+                            <h1 className="place-title">
 
-                        <p>₹ {stay.price}</p>
+                                {place}
 
-                        <Link to={`/homestay/${stay._id}`}>
+                            </h1>
 
-                            View Details
+                            <div className="place-cards">
 
-                        </Link>
+                                {
 
-                    </div>
+                                    groupedStays[place].map(
 
-                ))
+                                        (stay) => (
 
-            }
-            {
-            filteredHomestays.length === 0 && (
+                                            <div
+                                                key={stay._id}
+                                                className="stay-card"
+                                            >
 
-           <h2>
+                                                <img
+                                                    src={
+                                                        stay.image ||
 
-                 No stays found
+                                                        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+                                                    }
 
-            </h2>
+                                                    alt={stay.title}
+                                                />
 
-            )
+                                                <div
+                                                    className="stay-content"
+                                                >
+
+                                                    <h2>
+
+                                                        {stay.title}
+
+                                                    </h2>
+
+                                                    <p>
+
+                                                        ₹ {stay.price}/night
+
+                                                    </p>
+
+                                                    <Link
+                                                        to={`/homestay/${stay._id}`}
+                                                    >
+
+                                                        View Details
+
+                                                    </Link>
+
+                                                </div>
+
+                                            </div>
+
+                                        )
+
+                                    )
+
+                                }
+
+                            </div>
+
+                        </div>
+
+                    )
+
+                )
+
             }
 
         </div>
-        
-
-        
 
     );
 

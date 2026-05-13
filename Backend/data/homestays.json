@@ -1,0 +1,73 @@
+[
+  {
+    "title":"Hampi Heritage Stay",
+    "description":"Beautiful heritage stay near ancient temples",
+    "location":"Hampi",
+    "price":2500,
+    "hostName":"Yamuna",
+    "image":"https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+  },
+
+  {
+    "title":"Sunset View Homestay",
+    "description":"Peaceful stay with sunset hill views",
+    "location":"Hampi",
+    "price":3200,
+    "hostName":"Bhargavi",
+    "image":"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85"
+  },
+
+  {
+    "title":"Goa Beach Villa",
+    "description":"Luxury beachside villa with pool",
+    "location":"Goa",
+    "price":6500,
+    "hostName":"Veeranna",
+    "image":"https://images.unsplash.com/photo-1499793983690-e29da59ef1c2"
+  },
+
+  {
+    "title":"Palm Resort Goa",
+    "description":"Relaxing tropical resort near beaches",
+    "location":"Goa",
+    "price":4800,
+    "hostName":"Lakshmi Devi",
+    "image":"https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
+  },
+
+  {
+    "title":"Hilltop Cabin",
+    "description":"Wooden cabin surrounded by tea gardens",
+    "location":"Ooty",
+    "price":3500,
+    "hostName":"Veera Tejesh",
+    "image":"https://images.unsplash.com/photo-1449824913935-59a10b8d2000"
+  },
+
+  {
+    "title":"Tea Garden Retreat",
+    "description":"Stay amidst scenic mountain landscapes",
+    "location":"Ooty",
+    "price":4100,
+    "hostName":"Shiva",
+    "image":"https://images.unsplash.com/photo-1464890100898-a385f744067f"
+  },
+
+  {
+    "title":"Snow Peak Cottage",
+    "description":"Beautiful snowy mountain stay",
+    "location":"Manali",
+    "price":5200,
+    "hostName":"Keerthan",
+    "image":"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+  },
+
+  {
+    "title":"Valley View Resort",
+    "description":"Luxury mountain resort with spa",
+    "location":"Manali",
+    "price":6900,
+    "hostName":"Pardhu",
+    "image":"https://images.unsplash.com/photo-1494526585095-c41746248156"
+  }
+]
