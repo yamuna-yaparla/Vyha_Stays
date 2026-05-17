@@ -32,7 +32,7 @@ const homestaySchema = new mongoose.Schema({
         ref: "User"
     },
     hostName:{
-    type:String
+        type:String
     }
 
 }, { timestamps: true });

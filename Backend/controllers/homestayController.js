@@ -9,7 +9,8 @@ const createHomestay = async (req, res) => {
             description,
             location,
             price,
-            image
+            image,
+            hostName
         } = req.body;
 
         const homestay = await Homestay.create({

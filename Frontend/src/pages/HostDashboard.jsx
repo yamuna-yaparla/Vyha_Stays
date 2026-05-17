@@ -1,32 +1,56 @@
 import { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import API from "../services/api";
 
-function HostDashboard(){
+function HostDashboard() {
 
-    const [stays,setStays] = useState([]);
+    const navigate = useNavigate();
 
-    const [formData,setFormData] = useState({
+    const token = localStorage.getItem("token");
 
-        title:"",
-        description:"",
-        location:"",
-        price:"",
-        image:""
+    if(!token){
+
+        alert("Please login first");
+
+        navigate("/login");
+
+        return null;
+
+    }
+
+    const [stays, setStays] = useState([]);
+
+    const [formData, setFormData] = useState({
+
+        title: "",
+
+        description: "",
+
+        location: "",
+
+        price: "",
+
+        hostName: "",
+
+        image: ""
 
     });
 
     const getHostStays = async () => {
 
-        try{
+        try {
 
             const res = await API.get(
-                "/homestays/host/my-stays"
+
+                "/homestays"
+
             );
 
             setStays(res.data);
 
-        }catch(error){
+        } catch(error){
 
             console.log(error);
 
@@ -38,7 +62,7 @@ function HostDashboard(){
 
         getHostStays();
 
-    },[]);
+    }, []);
 
     const handleChange = (e) => {
 
@@ -46,7 +70,7 @@ function HostDashboard(){
 
             ...formData,
 
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
 
         });
 
@@ -56,22 +80,43 @@ function HostDashboard(){
 
         e.preventDefault();
 
-        try{
+        try {
 
             const res = await API.post(
+
                 "/homestays",
+
                 formData
+
             );
 
-            alert(res.data.message);
+            alert("Stay added successfully");
+
+            console.log(res.data);
+
+            setFormData({
+
+                title: "",
+
+                description: "",
+
+                location: "",
+
+                price: "",
+
+                hostName: "",
+
+                image: ""
+
+            });
 
             getHostStays();
 
-        }catch(error){
+        } catch(error){
 
             console.log(error);
 
-            alert("Failed to create stay");
+            alert("Failed to add stay");
 
         }
 
@@ -79,42 +124,72 @@ function HostDashboard(){
 
     const deleteStay = async (id) => {
 
-        try{
+        try {
 
             const res = await API.delete(
+
                 `/homestays/${id}`
+
             );
 
             alert(res.data.message);
 
             getHostStays();
 
-        }catch(error){
+        } catch(error){
 
             console.log(error);
+
+            alert("Delete failed");
 
         }
 
     };
 
-    return(
+    return (
 
-        <div style={{padding:"40px"}}>
+        <div
+            style={{
+                padding:"40px",
+                background:"#f7f7f7",
+                minHeight:"100vh"
+            }}
+        >
 
-            <h1>
+            <h1
+                style={{
+                    marginBottom:"30px",
+                    color:"#ff385c"
+                }}
+            >
 
                 Host Dashboard
 
             </h1>
 
+            {/* FORM */}
+
             <form
                 onSubmit={handleSubmit}
                 style={{
+                    background:"white",
+
+                    padding:"30px",
+
+                    borderRadius:"20px",
+
+                    boxShadow:
+                    "0px 4px 15px rgba(0,0,0,0.1)",
+
                     display:"flex",
+
                     flexDirection:"column",
+
                     gap:"15px",
-                    marginTop:"30px",
-                    maxWidth:"500px"
+
+                    maxWidth:"600px",
+
+                    marginBottom:"50px"
                 }}
             >
 
@@ -122,37 +197,59 @@ function HostDashboard(){
                     type="text"
                     name="title"
                     placeholder="Stay Title"
+                    value={formData.title}
                     onChange={handleChange}
+                    style={inputStyle}
                 />
 
                 <textarea
                     name="description"
                     placeholder="Description"
+                    value={formData.description}
                     onChange={handleChange}
+                    style={textareaStyle}
                 />
 
                 <input
                     type="text"
                     name="location"
                     placeholder="Location"
+                    value={formData.location}
                     onChange={handleChange}
+                    style={inputStyle}
                 />
 
                 <input
                     type="number"
                     name="price"
                     placeholder="Price"
+                    value={formData.price}
                     onChange={handleChange}
+                    style={inputStyle}
+                />
+
+                <input
+                    type="text"
+                    name="hostName"
+                    placeholder="Host Name"
+                    value={formData.hostName}
+                    onChange={handleChange}
+                    style={inputStyle}
                 />
 
                 <input
                     type="text"
                     name="image"
                     placeholder="Image URL"
+                    value={formData.image}
                     onChange={handleChange}
+                    style={inputStyle}
                 />
 
-                <button type="submit">
+                <button
+                    type="submit"
+                    style={buttonStyle}
+                >
 
                     Add Stay
 
@@ -160,77 +257,186 @@ function HostDashboard(){
 
             </form>
 
-            <hr style={{margin:"40px 0"}} />
+            {/* STAYS */}
 
-            <h2>
+            <h2
+                style={{
+                    marginBottom:"20px"
+                }}
+            >
 
-                My Stays
+                Added Homestays
 
             </h2>
 
-            {
+            <div
+                style={{
+                    display:"grid",
 
-                stays.map((stay) => (
+                    gridTemplateColumns:
+                    "repeat(auto-fit,minmax(300px,1fr))",
 
-                    <div
-                        key={stay._id}
-                        style={{
-                            background:"white",
-                            padding:"20px",
-                            marginTop:"20px",
-                            borderRadius:"10px"
-                        }}
-                    >
+                    gap:"25px"
+                }}
+            >
 
-                        <img
-                            src={stay.image}
-                            alt={stay.title}
+                {
+
+                    stays.map((stay) => (
+
+                        <div
+                            key={stay._id}
                             style={{
-                                width:"100%",
-                                height:"250px",
-                                objectFit:"cover",
-                                borderRadius:"10px"
+                                background:"white",
+
+                                borderRadius:"20px",
+
+                                overflow:"hidden",
+
+                                boxShadow:
+                                "0px 4px 15px rgba(0,0,0,0.1)"
                             }}
-                        />
-
-                        <h2>
-
-                            {stay.title}
-
-                        </h2>
-
-                        <p>
-
-                            {stay.location}
-
-                        </p>
-
-                        <p>
-
-                            ₹ {stay.price}
-
-                        </p>
-
-                        <button
-                            onClick={() =>
-                                deleteStay(stay._id)
-                            }
                         >
 
-                            Delete Stay
+                            <img
+                                src={stay.image}
+                                alt={stay.title}
+                                style={{
+                                    width:"100%",
 
-                        </button>
+                                    height:"240px",
 
-                    </div>
+                                    objectFit:"cover"
+                                }}
+                            />
 
-                ))
+                            <div
+                                style={{
+                                    padding:"20px"
+                                }}
+                            >
 
-            }
+                                <h2>
+
+                                    {stay.title}
+
+                                </h2>
+
+                                <p>
+
+                                    📍 {stay.location}
+
+                                </p>
+
+                                <p>
+
+                                    ₹ {stay.price}/night
+
+                                </p>
+
+                                <p>
+
+                                    Host:
+                                    {" "}
+                                    {stay.hostName}
+
+                                </p>
+
+                                <button
+                                    onClick={() =>
+                                        deleteStay(stay._id)
+                                    }
+                                    style={{
+                                        marginTop:"15px",
+
+                                        padding:
+                                        "12px 20px",
+
+                                        border:"none",
+
+                                        borderRadius:"10px",
+
+                                        background:"#ff385c",
+
+                                        color:"white",
+
+                                        cursor:"pointer"
+                                    }}
+                                >
+
+                                    Delete Stay
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    ))
+
+                }
+
+            </div>
 
         </div>
 
     );
 
 }
+
+/* INPUT STYLE */
+
+const inputStyle = {
+
+    padding:"14px",
+
+    border:"1px solid #ddd",
+
+    borderRadius:"10px",
+
+    fontSize:"16px"
+
+};
+
+/* TEXTAREA STYLE */
+
+const textareaStyle = {
+
+    padding:"14px",
+
+    border:"1px solid #ddd",
+
+    borderRadius:"10px",
+
+    fontSize:"16px",
+
+    minHeight:"120px",
+
+    resize:"none"
+
+};
+
+/* BUTTON STYLE */
+
+const buttonStyle = {
+
+    padding:"14px",
+
+    border:"none",
+
+    borderRadius:"10px",
+
+    background:
+    "linear-gradient(135deg,#ff385c,#ff6b81)",
+
+    color:"white",
+
+    fontSize:"16px",
+
+    fontWeight:"bold",
+
+    cursor:"pointer"
+
+};
 
 export default HostDashboard;

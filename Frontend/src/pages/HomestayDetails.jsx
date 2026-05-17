@@ -224,11 +224,25 @@ function HomestayDetails() {
 
                 <button
                     className="action-btn"
-                    onClick={() =>
-                        setShowBookingForm(
-                            !showBookingForm
-                        )
-                    }
+                    onClick={() => {
+
+                      const token =
+                      localStorage.getItem("token");
+
+                        if(!token){
+
+                           alert("Please login first");
+                           navigate("/login");
+
+                        return;
+
+                     }
+
+                    setShowBookingForm(
+                   !showBookingForm
+                    );
+
+                    }}
                 >
 
                     Book Now
@@ -287,11 +301,24 @@ function HomestayDetails() {
 
                     <button
                         className="action-btn"
-                        onClick={() =>
-                            setShowReviewForm(
-                                !showReviewForm
-                            )
+                        onClick={() => {
+
+                         const token =
+                        localStorage.getItem("token");
+
+                        if(!token){  
+
+                        alert("Please login first");
+
+                         return;
+
                         }
+
+                        setShowReviewForm(
+                        !showReviewForm
+                         );
+
+                        }}
                     >
 
                         Add Review

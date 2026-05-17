@@ -11,12 +11,32 @@ import Support from "./pages/Support";
 import Footer from "./components/Footer";
 import HostDashboard from "./pages/HostDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import bgImage from "./assets/bg.png";
 
 function App() {
 
   return (
 
     <BrowserRouter>
+    <div
+                style={{
+
+                    backgroundImage:
+
+                    `url(${bgImage})`,
+
+                    backgroundSize:"cover",
+
+                    backgroundPosition:"center",
+
+                    backgroundAttachment:"fixed",
+
+                    minHeight:"100vh"
+
+                }}
+            >
 
       <Navbar />
 
@@ -47,6 +67,16 @@ function App() {
           element={<HostDashboard />}
         />
 
+        <Route
+         path="/profile"
+         element={<Profile />}
+        />
+
+        <Route
+         path="/settings"
+         element={<Settings />}
+        />
+
         {
         localStorage.getItem("role") === "admin" && (
 
@@ -60,6 +90,8 @@ function App() {
 
       </Routes>
       <Footer />
+      
+    </div>
 
     </BrowserRouter>
 
